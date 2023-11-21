@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./register.scss";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -23,25 +21,41 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/signin/verify",
+        "https://auth-back-end.onrender.com/signin/verify",
         fromData
       );
       console.log(response);
       if (response.data === true) {
-        // alert("Registeration link Sent you to your mail id");
         toast.success("Registration link sent to your email!");
         navigate("/login");
       } else if (response.data === false) {
-        alert("User Already Exists");
+        toast.info("User Already Exists", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (e) {
       console.error("error during registeration", e);
-      toast.error("Error message");
+      toast.error("Error message", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   return (
     <div className="register">
-      <ToastContainer />
       <div className="card">
         <div className="left">
           <h1>Recipe_Book</h1>
